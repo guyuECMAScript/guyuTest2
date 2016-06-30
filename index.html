@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>VIPABC</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        body {
+            margin: 0px;
+            width: 100%;
+            height: 100%;
+        }
+
+        .text-box {
+            border: 10px solid #fff;
+            height: 66%;
+            width: 78%;
+            position: absolute;
+            top: 17%;
+            left: 8%;
+        }
+
+        .touch-box {
+            width: 60%;
+            height: 14%;
+            position: absolute;
+            top: 85%;
+            left: 20%;
+        }
+
+        .mini_image {
+            width: 38%;
+            height: 25%;
+            position: absolute;
+            margin-left: 32%;
+            margin-top: -20%;
+        }
+
+        .mini_image2 {
+            width: 9%;
+            height: 5%;
+            position: absolute;
+            left: 85%;
+            top: 4%;
+        }
+
+        .ec_image {
+            margin-top: 15%;
+            margin-left: 5%;
+        }
+
+        .backgroundSet {
+            position: fixed;
+            background-color: rgba(0, 0, 0, 0.8);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+        }
+
+        .logoSet {
+            position: absolute;
+            height: 15%;
+            width: 58%;
+            margin-left: 0;
+            top: 0;
+        }
+
+        .p-title {
+            width: 37%;
+            margin-left: 9%;
+            position: absolute;
+
+            color: white;
+        }
+
+        .inner-div1 {
+            position: absolute;
+
+            width: 80%;
+            /*margin-left: 9%;*/
+            border: solid;
+            border-color: white;
+            /*color: white;*/
+            /*font-size: 75px;*/
+        }
+
+        .okButton {
+            position: absolute;
+            height: 11%;
+            width: 17%;
+        }
+
+        .text-context {
+            position: absolute;
+            width: 90%;
+            color: white;
+            line-height: 150%;
+        }
+    </style>
+</head>
+<body>
+<div class="content">
+    <div class="head-div">
+        <img src="images/ec_01_01.png" class="image">
+        <img src="images/ec_01_04.png" onclick="ask()" class="mini_image2" id="mini-image2">
+
+        <div class="text-box" id="touch">
+            <img src="images/ec_01_03.png" class="mini_image">
+            <img src="images/ec_01_02.png" class="image ec_image" style="width:90%;">
+        </div>
+
+        <div id="version" class="touch-box">
+
+        </div>
+
+    </div>
+</div>
+<div id="background" class="backgroundSet">
+    <!--<div id="logo" class="logoSet">-->
+    <img class="logoSet" src="images/logo.png">
+    <!--</div>-->
+    <p class="p-title">活动详情</p>
+
+    <div class="inner-div1">
+        <p class="text-context">
+            活动主题:携好友猜冠军,火热玩转欧洲杯<br>
+            活动截止:7月10日<br>
+            参与方式:选择自己心中的冠军队伍,分享选择在朋友的帮助下获得额外的选择机会<br>
+            <br>
+            活动奖励:<br>
+            <br>
+            老会员<br>
+            1.猜对冠军即有机会抽奖获得价值3000元的超值大礼(京东购物卡/韩国人气演唱会大礼包)<br>
+            <br>
+            2.每推荐一名新会员成功加入我们即可选择价值1500元的四重好礼(京东购物卡/韩国演唱会现场门票/苹果系列产品/课程兑换)<br>
+            <br>
+            新会员<br>
+            留下名单后即可参与猜冠军活动,猜对即有机会抽奖获得价值3000元超值大礼(京东购物卡/韩国超人气演唱会大礼包)<br>
+        </p>
+    </div>
+        <img src="images/ok.png" onclick="ok()" class="image okButton" id="okButton">
+
+</div>
+<script type="application/javascript">
+    //全局变量，触摸开始位置
+    var startX = 0, startY = 0;
+
+    //touchstart事件
+    function touchSatrtFunc(evt) {
+        try {
+            evt.preventDefault(); //阻止触摸时浏览器的缩放、滚动条滚动等
+
+            var touch = evt.touches[0]; //获取第一个触点
+            var x = touch.pageX; //页面触点X坐标
+            var y = touch.pageY; //页面触点Y坐标
+            //记录触点初始位置
+            startX = x;
+            startY = y;
+
+        }
+        catch (e) {
+            alert('touchSatrtFunc：' + e.message);
+        }
+    }
+
+    //touchmove事件，这个事件无法获取坐标
+    function touchMoveFunc(evt) {
+        try {
+            evt.preventDefault(); //阻止触摸时浏览器的缩放、滚动条滚动等
+            var touch = evt.touches[0]; //获取第一个触点
+            var x = touch.pageX; //页面触点X坐标
+            var y = touch.pageY; //页面触点Y坐标
+
+
+            if (y - startY > 50) {
+                window.location.href = 'pick.html';
+            }
+
+        }
+        catch (e) {
+            alert('touchMoveFunc：' + e.message);
+        }
+    }
+
+    //touchend事件
+    function touchEndFunc(evt) {
+        try {
+            evt.preventDefault(); //阻止触摸时浏览器的缩放、滚动条滚动等
+            if(evt.target == document.getElementById('mini-image2')){
+                ask();
+            }
+
+            if(evt.target == document.getElementById('okButton')){
+                ok();
+            }
+        }
+        catch (e) {
+            alert('touchEndFunc：' + e.message);
+        }
+    }
+    //绑定事件
+    function bindEvent(f) {
+        if (f == 1) {
+            document.removeEventListener('touchstart', touchSatrtFunc, false);
+            document.removeEventListener('touchmove', touchMoveFunc, false);
+            document.removeEventListener('touchend', touchEndFunc, false);
+        } else {
+            document.addEventListener('touchstart', touchSatrtFunc, false);
+            document.addEventListener('touchmove', touchMoveFunc, false);
+            document.addEventListener('touchend', touchEndFunc, false);
+        }
+    }
+    //判断是否支持触摸事件
+    function isTouchDevice() {
+        try {
+            document.createEvent("TouchEvent");
+            //alert("支持TouchEvent事件！");
+            bindEvent(); //绑定事件
+        }
+        catch (e) {
+            //alert("不支持TouchEvent事件！" + e.message);
+        }
+    }
+    window.onload = isTouchDevice;
+
+    //    function next() {
+    //         window.location.href = 'pick.html';
+    //    }
+
+    function ask() {
+        document.getElementById('background').style.display = 'block';
+    }
+    function ok() {
+        document.getElementById('background').style.display = 'none';
+    }
+
+</script>
+</body>
+</html>
